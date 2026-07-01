@@ -1,20 +1,45 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "GIREXIM INTERNATIONAL - Container Management",
-  description: "Private container management system",
+  title: "GIR EXIM INTERNATIONAL PVT LTD | Global Commodity Trading",
+  description:
+    "Connecting Global Markets with Trusted Commodity Trading. Import and export of agricultural commodities including cashew nuts, soybean, cocoa beans, sesame seeds, and more.",
+  keywords: [
+    "commodity trading",
+    "import export",
+    "agricultural commodities",
+    "cashew nuts",
+    "soybean",
+    "cocoa beans",
+    "GIR EXIM",
+    "international trade",
+  ],
+  openGraph: {
+    title: "GIR EXIM INTERNATIONAL PVT LTD",
+    description:
+      "Connecting Global Markets with Trusted Commodity Trading",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -25,9 +50,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${inter.variable} ${montserrat.variable}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="antialiased noise-overlay">
+        {children}
+      </body>
     </html>
   );
 }
