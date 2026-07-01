@@ -55,6 +55,12 @@ export default function Header() {
               PERFORMA INVOICE
             </button>
             <button
+              onClick={() => router.push("/dashboard/payment-advice")}
+              className="inline-flex items-center px-3 py-1.5 rounded-md bg-yellow-50 text-yellow-600 text-xs font-medium border border-yellow-100 hover:bg-yellow-100 transition-colors"
+            >
+              PAYMENT ADVICE
+            </button>
+            <button
               onClick={() => router.push("/dashboard/packing-list")}
               className="inline-flex items-center px-3 py-1.5 rounded-md bg-green-50 text-green-600 text-xs font-medium border border-green-100 hover:bg-green-100 transition-colors"
             >
