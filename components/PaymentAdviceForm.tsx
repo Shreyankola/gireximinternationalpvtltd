@@ -1,13 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PaymentAdviceData } from "@/types";
 import { defaultPaymentAdviceData } from "@/lib/paymentAdviceDefaults";
 import { exportPaymentAdviceWord } from "@/lib/exportPaymentAdviceWord";
+import { amountToWords } from "@/lib/numberToWords";
 
 export default function PaymentAdviceForm() {
   const [data, setData] = useState<PaymentAdviceData>({ ...defaultPaymentAdviceData });
   const [generating, setGenerating] = useState<"word" | null>(null);
+
+  useEffect(() => {
+    try {
+      const words = amountToWords(data.amount);
+      setData((prev) => ({ ...prev, amountWords: words }));
+    } catch {
+      // ignore invalid input
+    }
+  }, [data.amount]);
 
   const update = <K extends keyof PaymentAdviceData>(field: K, value: PaymentAdviceData[K]) => {
     setData((prev) => ({ ...prev, [field]: value }));
@@ -113,6 +123,7 @@ export default function PaymentAdviceForm() {
             <div className="sm:col-span-2">
               <label className={labelClass}>Amount in Words</label>
               <textarea value={data.amountWords} onChange={(e) => update("amountWords", e.target.value)} rows={2} className={`${inputClass} resize-none`} />
+              <p className="text-[10px] text-gray-400 mt-0.5">Auto-calculated from amount above</p>
             </div>
           </div>
           <div className="mt-3 space-y-2">
