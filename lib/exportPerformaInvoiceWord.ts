@@ -67,24 +67,26 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
     if (idx + 1 < runs.length) runs[idx + 1].textContent = value;
   }
 
-  // Replace header seller address (appears twice)
-  replaceExact("MEYDAN   GRANDSTAND,   6TH   FLOOR,   MEYDAN   ROAD, NAD AL SHEBA, DUBAI, U.A.E", data.sellerAddress);
+  const sellerAddrLine = data.sellerAddress.replace(/\r?\n/g, ", ").replace(/\r/g, "");
+
+  // Header address (appears twice)
+  replaceExact("MEYDAN GRANDSTAND, 6TH FLOOR, ROAD, NAD AL SHEBA, DUBAI, U.A.E", sellerAddrLine);
 
   // Seller
   replaceExact("SELLER: GRAND TRADING L.L.C FZ", `SELLER: ${data.seller}`);
 
-  // Seller address in second occurrence
+  // Seller address (multi-run paragraph)
   const sellerAddrStart = findExact("MEYDAN GRANDSTAND 6");
   if (sellerAddrStart) {
     const para = parentPara(sellerAddrStart);
     if (para) {
       const runs = siblingRuns(para);
       for (const r of runs) r.textContent = "";
-      runs[0].textContent = data.sellerAddress;
+      runs[0].textContent = sellerAddrLine;
     }
   }
 
-  // Invoice number (split across runs: "GTL/GEI/00", "6 ", "/2 ", "6 ", "-2 ", "7")
+  // Invoice number (split across runs)
   const invPart = findExact("GTL/GEI/00");
   if (invPart) {
     const para = parentPara(invPart);
@@ -157,7 +159,18 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
   replaceLabelValue("SHIPING TERMS: ", data.shippingTerms || "");
 
   // BL. NO
-  replaceLabelValue("BL. NO:", data.blNo ? ` ${data.blNo}` : "");
+  const blLabel = findExact("BL. NO:");
+  if (blLabel) {
+    const para = parentPara(blLabel);
+    if (para) {
+      const runs = siblingRuns(para);
+      const idx = runs.findIndex((r) => getText(r) === "BL. NO:");
+      if (idx >= 0) {
+        for (let j = idx + 1; j < runs.length; j++) runs[j].textContent = "";
+        if (idx + 1 < runs.length) runs[idx + 1].textContent = ` ${data.blNo || ""}`;
+      }
+    }
+  }
 
   // S. BILL NO.
   const sbillEl = findExact("S. BILL NO.:");
@@ -173,9 +186,6 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
     }
   }
 
-  // MARK & NO
-  replaceLabelValue("MARK & NO.", data.markAndNo || "");
-
   // HSN Code
   const hsnEls: Element[] = [];
   for (let i = 0; i < tEls.length; i++) {
@@ -184,13 +194,20 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
   for (const h of hsnEls) h.textContent = data.hsnCode;
 
   // Description of goods
-  const descEl = findExact("Aluminum  Scrap  Tense as per ISRI");
-  if (descEl) descEl.textContent = data.descriptionOfGoods;
+  const descEl = findExact("Aluminum");
+  if (descEl) {
+    const para = parentPara(descEl);
+    if (para) {
+      const runs = siblingRuns(para);
+      for (const r of runs) r.textContent = "";
+      runs[0].textContent = data.descriptionOfGoods;
+    }
+  }
 
-  // Quantity (appears twice in template: goods row + total row)
+  // Quantity (appears twice)
   for (let i = 0; i < tEls.length; i++) {
-    if (getText(tEls[i]) === "27.5  MT") {
-      tEls[i].textContent = `${data.quantity}  MT`;
+    if (getText(tEls[i]) === "27.5") {
+      tEls[i].textContent = data.quantity;
     }
   }
 
@@ -207,7 +224,7 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
       const dollarIdx = runs.indexOf(el);
       if (dollarIdx >= 0 && runs.length > dollarIdx + 1) {
         const nextText = getText(runs[dollarIdx + 1]);
-        if (/^[\d.]+$/.test(nextText.replace(/,/g, ""))) {
+        if (/^[\d,.]+$/.test(nextText)) {
           for (let j = dollarIdx + 1; j < runs.length; j++) runs[j].textContent = "";
           runs[dollarIdx + 1].textContent = data.amount;
         }
@@ -257,15 +274,8 @@ export async function exportPerformaInvoiceWord(data: PerformaInvoiceData) {
   replaceExact("grandbusiness2024@gmail.com", data.companyEmail);
 
   // Footer phone
-  const plusEl = findExact("+971");
-  if (plusEl) {
-    const para = parentPara(plusEl);
-    if (para) {
-      const runs = siblingRuns(para);
-      for (const r of runs) r.textContent = "";
-      runs[0].textContent = data.companyPhone;
-    }
-  }
+  const plusEl = findExact("+971 50 280 0736");
+  if (plusEl) plusEl.textContent = data.companyPhone;
 
   // Serialize back
   const serializer = new XMLSerializer();
