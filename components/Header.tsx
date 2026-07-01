@@ -33,6 +33,8 @@ export default function Header() {
     { label: "Packing List", href: "/dashboard/packing-list", color: "green" },
   ];
 
+  const activeItem = items.find((item) => pathname === item.href);
+
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,9 +69,19 @@ export default function Header() {
             <div className="relative" ref={ref}>
               <button
                 onClick={() => setOpen(!open)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-gray-50 text-gray-600 text-xs font-medium border border-gray-200 hover:bg-gray-100 transition-colors"
+                className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                  activeItem
+                    ? (activeItem.color === "blue"
+                        ? "bg-blue-50 text-blue-600 border-blue-100 hover:bg-blue-100"
+                        : activeItem.color === "purple"
+                          ? "bg-purple-50 text-purple-600 border-purple-100 hover:bg-purple-100"
+                          : activeItem.color === "yellow"
+                            ? "bg-yellow-50 text-yellow-600 border-yellow-100 hover:bg-yellow-100"
+                            : "bg-green-50 text-green-600 border-green-100 hover:bg-green-100")
+                    : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
+                }`}
               >
-                Documents
+                {activeItem?.label ?? "Documents"}
                 <svg className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
