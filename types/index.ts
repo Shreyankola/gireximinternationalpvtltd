@@ -53,6 +53,43 @@ export interface PackingListData {
   companyPhone: string;
 }
 
+export interface PerformaInvoiceData {
+  seller: string;
+  sellerAddress: string;
+  invoiceNo: string;
+  date: string;
+  incoTerms: string;
+  buyer: string;
+  buyerAddress: string;
+  gstNo: string;
+  mo: string;
+  email: string;
+  countryOfOrigin: string;
+  portOfLoading: string;
+  portOfDischarge: string;
+  notifyParty: string;
+  paymentTerms: string;
+  shippingTerms: string;
+  blNo: string;
+  sBillNo: string;
+  markAndNo: string;
+  noOfBags: string;
+  descriptionOfGoods: string;
+  hsnCode: string;
+  quantity: string;
+  rate: string;
+  amount: string;
+  valueInWords: string;
+  bankName: string;
+  bankBranch: string;
+  ibanNo: string;
+  accountNo: string;
+  swiftCode: string;
+  declaration: string;
+  companyEmail: string;
+  companyPhone: string;
+}
+
 export interface InvoiceData {
   seller: string;
   sellerAddress: string;

@@ -46,7 +46,13 @@ export default function Header() {
               onClick={() => router.push("/dashboard/invoice")}
               className="inline-flex items-center px-3 py-1.5 rounded-md bg-blue-50 text-blue-600 text-xs font-medium border border-blue-100 hover:bg-blue-100 transition-colors"
             >
-              Invoice
+              COMMERCIAL INVOICE
+            </button>
+            <button
+              onClick={() => router.push("/dashboard/performa-invoice")}
+              className="inline-flex items-center px-3 py-1.5 rounded-md bg-purple-50 text-purple-600 text-xs font-medium border border-purple-100 hover:bg-purple-100 transition-colors"
+            >
+              PERFORMA INVOICE
             </button>
             <button
               onClick={() => router.push("/dashboard/packing-list")}
