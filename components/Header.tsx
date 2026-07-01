@@ -36,9 +36,24 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <span className="hidden sm:inline-flex items-center px-3 py-1.5 rounded-md bg-orange-50 text-orange-600 text-xs font-medium border border-orange-100">
-              Container Info
-            </span>
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="inline-flex items-center px-3 py-1.5 rounded-md bg-orange-50 text-orange-600 text-xs font-medium border border-orange-100 hover:bg-orange-100 transition-colors"
+            >
+              Containers
+            </button>
+            <button
+              onClick={() => router.push("/dashboard/invoice")}
+              className="inline-flex items-center px-3 py-1.5 rounded-md bg-blue-50 text-blue-600 text-xs font-medium border border-blue-100 hover:bg-blue-100 transition-colors"
+            >
+              Invoice
+            </button>
+            <button
+              onClick={() => router.push("/dashboard/packing-list")}
+              className="inline-flex items-center px-3 py-1.5 rounded-md bg-green-50 text-green-600 text-xs font-medium border border-green-100 hover:bg-green-100 transition-colors"
+            >
+              Packing List
+            </button>
             <button
               onClick={handleLogout}
               className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 transition-colors"
