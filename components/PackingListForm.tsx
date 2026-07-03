@@ -1,13 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { PackingListData } from "@/types";
-import { defaultPackingListData } from "@/lib/packingListDefaults";
+import { useState, useEffect } from "react";
+import { PackingListData, CompanyType } from "@/types";
+import { getPackingListDefaults } from "@/lib/packingListDefaults";
 import { exportPackingListWord } from "@/lib/exportPackingListWord";
 
 export default function PackingListForm() {
-  const [data, setData] = useState<PackingListData>({ ...defaultPackingListData });
+  const [company, setCompany] = useState<CompanyType>("grand");
+  const [data, setData] = useState<PackingListData>({ ...getPackingListDefaults("grand") });
   const [generating, setGenerating] = useState<string | null>(null);
+
+  useEffect(() => {
+    setData({ ...getPackingListDefaults(company) });
+  }, [company]);
 
   const update = (field: keyof PackingListData, value: any) => {
     setData((prev) => ({ ...prev, [field]: value }));
@@ -26,7 +31,7 @@ export default function PackingListForm() {
   };
 
   const resetForm = () => {
-    setData({ ...defaultPackingListData });
+    setData({ ...getPackingListDefaults(company) });
   };
 
   const field = (label: string, field: keyof PackingListData, opts?: { rows?: number; span?: boolean }) => (
@@ -52,6 +57,19 @@ export default function PackingListForm() {
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Company Dropdown */}
+      <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 shadow-sm">
+        <label className="block text-xs font-medium text-gray-600 mb-1">Company</label>
+        <select
+          value={company}
+          onChange={(e) => setCompany(e.target.value as CompanyType)}
+          className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-200 bg-white"
+        >
+          <option value="grand">Grand Trading L.L.C FZ</option>
+          <option value="winner">Winner Trading FZ-LLC</option>
+        </select>
+      </div>
+
       <div className="space-y-6">
         {/* Exporter */}
         <fieldset className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 shadow-sm">

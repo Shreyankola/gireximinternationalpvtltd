@@ -27,8 +27,8 @@ export default function Header() {
   }, []);
 
   const items = [
-    { label: "COMMERCIAL INVOICE", href: "/dashboard/invoice", color: "blue" },
-    { label: "PERFORMA INVOICE", href: "/dashboard/performa-invoice", color: "purple" },
+    { label: "INVOICE (COMM. & PROFORMA)", href: "/dashboard/invoice", color: "blue" },
+    { label: "TAX INVOICE", href: "/dashboard/tax-invoice", color: "purple" },
     { label: "PAYMENT ADVICE", href: "/dashboard/payment-advice", color: "yellow" },
     { label: "Packing List", href: "/dashboard/packing-list", color: "green" },
   ];

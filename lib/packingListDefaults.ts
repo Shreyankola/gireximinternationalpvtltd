@@ -1,6 +1,7 @@
-import { PackingListData } from "@/types";
+import { PackingListData, CompanyType } from "@/types";
 
-export const defaultPackingListData: PackingListData = {
+export const defaultPackingListDataGrand: PackingListData = {
+  company: "grand",
   exporter: "GRAND TRADING L.L.C FZ",
   exporterAddress: "MEYDEN GRANDSTAND, 6TH FLOOR, MEYDAN ROAD, NAD AL SHEBA, DUBAI UAE",
   invoiceNo: "GTL/GEI/004/26-27",
@@ -35,3 +36,48 @@ export const defaultPackingListData: PackingListData = {
   companyEmail: "grandbusiness2024@gmail.com",
   companyPhone: "+971 50 280 0736",
 };
+
+export const defaultPackingListDataWinner: PackingListData = {
+  company: "winner",
+  exporter: "WINNER TRADING FZ-LLC",
+  exporterAddress: "AL SHOHADA ROAD, AL HAMRA INDUSTRIAL ZONE-FZ, RAS AL KHAIMAH, UNITED ARAB EMIRATES",
+  invoiceNo: "WTFL/GIR/01/26-27",
+  date: "10/04/2026",
+  consignee: "GIREXIM INTERNATIONAL PRIVATE LIMITED",
+  consigneeAddress: "Floor No.5th, Flat No. 502, Business Square Tapovan, Road/Street: Zanzarda Chowkdi, Tapovan, JUNAGADH, GUJRAT, PIN-362001, INDIA",
+  consigneeMo: "+91 9978302386",
+  consigneeGst: "24AAMCG3269L1Z6",
+  buyerOrderNo: "",
+  otherExporterDetails: "",
+  notifyParty: "",
+  countryOfOrigin: "NIGERIA",
+  countryOfFinalDestination: "INDIA",
+  portOfLoading: "APAPA, NIGERIA",
+  portOfDischarge: "MUNDRA, GUJARAT, INDIA",
+  termsOfDelivery: "100% ADVANCE – PARTIALLY PAYMENT ALLOWED",
+  vesselName: "MAERSK SEADREAM 618E",
+  containerNo: "(1) MRSU7463153",
+  modeOfShipment: "BY SEA",
+  shipmentPeriod: "",
+  srNo: "1",
+  descriptionOfGoods: "RAW CASHEW NUT - IN SHELL",
+  hsnCode: "08013100",
+  quantity: "27.802",
+  packagesNetGross: "NO. OF BAG: 340 JUTE BAGS NET WEIGHT: 27,802 Kg. GROSS WEIGHT: 28,142 Kg.",
+  declaration: "FOR EXPORT PURPOSE ONLY - FROM NIGERIA TO INDIA - ANY PORT IN INDIA.",
+  bankName: "WINNER TRADING FZ-LLC",
+  bankBranch: "NATIONAL BANK OF FUJAIRAH, RAS AL KHAIMAH, U.A.E.",
+  ibanNo: "AE090380000012990137348",
+  accountNo: "012990137348 (USD)",
+  swiftCode: "NBFUAEAF",
+  companyEmail: "info.winnertrading@gmail.com",
+  companyPhone: "+971 50 123 4567",
+};
+
+export const defaultPackingListData: PackingListData = { ...defaultPackingListDataGrand };
+
+export function getPackingListDefaults(company: CompanyType): PackingListData {
+  return company === "grand"
+    ? { ...defaultPackingListDataGrand }
+    : { ...defaultPackingListDataWinner };
+}

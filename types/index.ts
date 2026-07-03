@@ -17,7 +17,10 @@ export interface ContainerInfo {
   selected?: boolean;
 }
 
+export type CompanyType = "grand" | "winner";
+
 export interface PackingListData {
+  company: CompanyType;
   exporter: string;
   exporterAddress: string;
   invoiceNo: string;
@@ -130,6 +133,7 @@ export interface PaymentAdviceData {
 }
 
 export interface PerformaInvoiceData {
+  company: CompanyType;
   seller: string;
   sellerAddress: string;
   invoiceNo: string;
@@ -148,6 +152,7 @@ export interface PerformaInvoiceData {
   shippingTerms: string;
   blNo: string;
   sBillNo: string;
+  containerNo: string;
   markAndNo: string;
   noOfBags: string;
   descriptionOfGoods: string;
@@ -166,7 +171,50 @@ export interface PerformaInvoiceData {
   companyPhone: string;
 }
 
+export interface TaxInvoiceData {
+  seller: string;
+  sellerAddress: string;
+  gstNo: string;
+  pan: string;
+  invoiceNo: string;
+  date: string;
+  billTo: string;
+  billToAddress: string;
+  billToGst: string;
+  billToPan: string;
+  shipTo: string;
+  shipToAddress: string;
+  shipToGst: string;
+  shipToPan: string;
+  material: string;
+  containerNo: string;
+  noOfCon: string;
+  totalWeight: string;
+  pol: string;
+  pod: string;
+  srNo: string;
+  hsnCode: string;
+  descriptionOfGoods: string;
+  qtyKg: string;
+  rateKg: string;
+  amount: string;
+  cgst: string;
+  sgst: string;
+  roundOff: string;
+  grandTotal: string;
+  amountInWords: string;
+  bankName: string;
+  bankBranchName: string;
+  accountNo: string;
+  ifscCode: string;
+  swiftCodeTax: string;
+  micrCode: string;
+  branch: string;
+  terms: string[];
+}
+
 export interface InvoiceData {
+  company: CompanyType;
   seller: string;
   sellerAddress: string;
   invoiceNo: string;
@@ -184,7 +232,9 @@ export interface InvoiceData {
   paymentTerms: string;
   vesselName: string;
   draftBlNo: string;
+  iecNo: string;
   sBillNo: string;
+  containerNo: string;
   markAndNo: string;
   descriptionOfGoods: string;
   noOfBags: string;

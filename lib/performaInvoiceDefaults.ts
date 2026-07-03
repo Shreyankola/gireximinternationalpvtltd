@@ -1,6 +1,7 @@
-import { PerformaInvoiceData } from "@/types";
+import { PerformaInvoiceData, CompanyType } from "@/types";
 
-export const defaultPerformaInvoiceData: PerformaInvoiceData = {
+export const defaultPerformaInvoiceDataGrand: PerformaInvoiceData = {
+  company: "grand",
   seller: "GRAND TRADING L.L.C FZ",
   sellerAddress: "MEYDAN GRANDSTAND, 6TH FLOOR, MEYDAN ROAD, NAD AL SHEBA, DUBAI, U.A.E.",
   invoiceNo: "GTL/GEI/006/26-27",
@@ -17,8 +18,9 @@ export const defaultPerformaInvoiceData: PerformaInvoiceData = {
   notifyParty: "",
   paymentTerms: "100% ADVANCE PAYMENT OR PARTIALLY PAYMENT ALLOWED",
   shippingTerms: "",
-  blNo: "",
+  blNo: "268783156",
   sBillNo: "",
+  containerNo: "",
   markAndNo: "",
   noOfBags: "",
   descriptionOfGoods: "Aluminum Scrap Tense as per ISRI",
@@ -36,3 +38,50 @@ export const defaultPerformaInvoiceData: PerformaInvoiceData = {
   companyEmail: "grandbusiness2024@gmail.com",
   companyPhone: "+971 50 280 0736",
 };
+
+export const defaultPerformaInvoiceDataWinner: PerformaInvoiceData = {
+  company: "winner",
+  seller: "WINNER TRADING FZ-LLC",
+  sellerAddress: "AL SHOHADA ROAD, AL HAMRA INDUSTRIAL ZONE-FZ, RAS AL KHAIMAH, UNITED ARAB EMIRATES",
+  invoiceNo: "WTFL/GIR/006/26-27",
+  date: "01/06/2026",
+  incoTerms: "CNF",
+  buyer: "GIREXIM INTERNATIONAL PVT LTD",
+  buyerAddress: "502, BUSINESS SQUARE, TAPOVAN, NEAR ZANZARDA CHOWKDI, ZANZARDA ROAD, JUNAGADH - 362001, INDIA",
+  gstNo: "24AAMCG3269L1Z6",
+  mo: "9978302386",
+  email: "info.gireximinternationalpvtltd@gmail.com",
+  countryOfOrigin: "NIGERIA",
+  portOfLoading: "ANY PORT OF NIGERIA",
+  portOfDischarge: "MUNDRA, INDIA",
+  notifyParty: "",
+  paymentTerms: "100% ADVANCE PAYMENT OR PARTIALLY PAYMENT ALLOWED",
+  shippingTerms: "",
+  blNo: "",
+  sBillNo: "",
+  containerNo: "MRSU7463153",
+  markAndNo: "",
+  noOfBags: "",
+  descriptionOfGoods: "Aluminum Scrap Tense as per ISRI",
+  hsnCode: "76020010",
+  quantity: "27.5",
+  rate: "2336.93",
+  amount: "64,265.57",
+  valueInWords: "USD SIXTY-FOUR THOUSAND TWO HUNDRED SIXTY-FIVE AND FIFTY-SEVEN CENTS ONLY",
+  bankName: "WINNER TRADING FZ-LLC",
+  bankBranch: "NATIONAL BANK OF FUJAIRAH, RAS AL KHAIMAH, U.A.E.",
+  ibanNo: "AE090380000012990137348",
+  accountNo: "012990137348 (USD)",
+  swiftCode: "NBFUAEAF",
+  declaration: "WE DECLARE THAT THIS INVOICE SHOWS THE ACTUAL PRICE OF GOODS DESCRIBED AND ALL THE PERTICULARS ARE TRUE AND CORRECT.",
+  companyEmail: "info.winnertrading@gmail.com",
+  companyPhone: "+971 50 123 4567",
+};
+
+export const defaultPerformaInvoiceData: PerformaInvoiceData = { ...defaultPerformaInvoiceDataGrand };
+
+export function getPerformaInvoiceDefaults(company: CompanyType): PerformaInvoiceData {
+  return company === "grand"
+    ? { ...defaultPerformaInvoiceDataGrand }
+    : { ...defaultPerformaInvoiceDataWinner };
+}
